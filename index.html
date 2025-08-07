@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sai Vista Daily Events Nomination 2025</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+</head>
+<body class="bg-gray-100 min-h-screen font-sans">
+  <main class="container mx-auto max-w-xl px-4 py-12">
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <h1 class="text-center text-3xl font-bold text-blue-700 mb-8">
+        Sai Vista Daily Events Nomination<br />
+        <span class="text-lg text-gray-600">Aug 28 - Sept 5, 2025</span>
+      </h1>
+
+      <form id="eventsForm" class="space-y-6" novalidate>
+        <!-- Name -->
+        <div>
+          <label for="name" class="block font-semibold mb-1">Full Name *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-300"
+            placeholder="Enter your full name"
+          />
+        </div>
+
+        <!-- Flat Number and Wing -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label for="flatNo" class="block font-semibold mb-1">Flat Number *</label>
+            <select
+              id="flatNo"
+              name="flatNo"
+              required
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
+            >
+              <option value="" disabled selected>Select Flat Number</option>
+              <!-- Options loaded by JS -->
+            </select>
+          </div>
+          <div>
+            <label for="wing" class="block font-semibold mb-1">Wing *</label>
+            <select
+              id="wing"
+              name="wing"
+              required
+              class="w-full border border-gray-300 rounded-lg px-4 py-2 bg-white"
+            >
+              <option value="" disabled selected>Select Wing</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- WhatsApp Number -->
+        <div>
+          <label for="whatsapp" class="block font-semibold mb-1">WhatsApp Number *</label>
+          <input
+            type="tel"
+            id="whatsapp"
+            name="whatsapp"
+            required
+            pattern="[0-9]{10}"
+            maxlength="10"
+            class="w-full border border-gray-300 rounded-lg px-4 py-2 focus:border-blue-500 focus:ring focus:ring-blue-300"
+            placeholder="10-digit WhatsApp number"
+          />
+          <p class="text-xs text-gray-500 mt-1">Enter your 10-digit WhatsApp number (no country code)</p>
+        </div>
+
+        <!-- Events Checkboxes -->
+        <fieldset>
+          <legend class="font-semibold mb-2">Select Events to Participate *</legend>
+          <div id="eventsCheckboxes" class="space-y-2 max-h-60 overflow-y-auto border border-gray-200 p-3 rounded-lg bg-gray-50">
+            <!-- Event checkboxes added by JS -->
+          </div>
+          <p id="eventError" class="text-red-600 text-sm mt-1 hidden">Please select at least one event.</p>
+        </fieldset>
+
+        <!-- Acknowledge Checkbox -->
+        <div>
+          <input type="checkbox" id="acknowledge" name="acknowledge" required class="mr-2"/>
+          <label for="acknowledge" class="font-medium">
+            I acknowledge that my details may be used for event coordination. *
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          id="submitButton"
+          class="w-full bg-blue-600 text-white font-semibold text-lg py-3 rounded-lg hover:bg-blue-700 flex justify-center items-center disabled:opacity-50"
+        >
+          <i class="fas fa-paper-plane mr-2"></i> Submit Nomination
+        </button>
+      </form>
+
+      <!-- Success Message -->
+      <div
+        id="successMsg"
+        class="hidden mt-8 p-6 bg-green-50 border border-green-300 rounded-xl text-green-800 text-center font-semibold"
+        role="alert"
+        aria-live="polite"
+      >
+        <i class="fas fa-check-circle text-3xl mb-3"></i>
+        Thank you! Your nomination has been received.<br/>
+        We will connect with you on WhatsApp soon.<br/>
+        For any changes, please contact <strong>8149525915</strong>.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Replace this with your actual Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL";
+
+    // Flat number options generation (floor 1-13, flats 01-04)
+    const flatNoSelect = document.getElementById("flatNo");
+    for (let floor = 1; floor <= 13; floor++) {
+      for (let flat = 1; flat <= 4; flat++) {
+        const flatNum = `${floor}${flat < 10 ? "0" + flat : flat}`;
+        const option = document.createElement("option");
+        option.value = flatNum;
+        option.textContent = flatNum;
+        flatNoSelect.appendChild(option);
+      }
+    }
+
+    // Event details array: Day, Date, Event Name
+    const eventsList = [
+      { day: 1, date: "28 Aug", name: "Modak Making" },
+      { day: 2, date: "29 Aug", name: "Drawing Competition" },
+      { day: 3, date: "30 Aug", name: "Antakshari" },
+      { day: 4, date: "31 Aug", name: "Fancy Dress" },
+      { day: 5, date: "1 Sep", name: "Rangoli" },
+      { day: 6, date: "2 Sep", name: "Talent Show" },
+      { day: 7, date: "3 Sep", name: "Sports" },
+      { day: 8, date: "4 Sep", name: "Quiz" },
+      { day: 9, date: "5 Sep", name: "Prize Function" },
+    ];
+
+    const eventsContainer = document.getElementById("eventsCheckboxes");
+    eventsList.forEach(({ day, date, name }, index) => {
+      const id = `event${index + 1}`;
+      const div = document.createElement("div");
+      div.className = "flex items-center";
+
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.id = id;
+      checkbox.name = "events";
+      checkbox.value = `Day ${day} - ${date} - ${name}`;
+      checkbox.className = "mr-2 h-5 w-5";
+
+      const label = document.createElement("label");
+      label.htmlFor = id;
+      label.textContent = `Day ${day} - ${date} - ${name}`;
+      label.className = "select-none";
+
+      div.appendChild(checkbox);
+      div.appendChild(label);
+      eventsContainer.appendChild(div);
+    });
+
+    // Limit WhatsApp input to digits only & max 10 chars
+    const whatsappInput = document.getElementById("whatsapp");
+    whatsappInput.addEventListener("input", () => {
+      whatsappInput.value = whatsappInput.value.replace(/\D/g, "").slice(0, 10);
+    });
+
+    // Form submission handling
+    const form = document.getElementById("eventsForm");
+    const eventError = document.getElementById("eventError");
+    const successMsg = document.getElementById("successMsg");
+    const submitButton = document.getElementById("submitButton");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Validate at least one event selected
+      const selectedEvents = Array.from(
+        document.querySelectorAll('input[name="events"]:checked')
+      ).map((input) => input.value);
+
+      if (selectedEvents.length === 0) {
+        eventError.classList.remove("hidden");
+        return;
+      } else {
+        eventError.classList.add("hidden");
+      }
+
+      // Validate form fields using built-in constraints
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Disable submit button to prevent multiple submissions
+      submitButton.disabled = true;
+      submitButton.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...`;
+
+      // Prepare the payload
+      const data = {
+        name: form.name.value.trim(),
+        flatNo: form.flatNo.value,
+        wing: form.wing.value,
+        whatsapp: form.whatsapp.value,
+        events: selectedEvents.join("; "),
+        acknowledge: form.acknowledge.checked ? "Yes" : "No",
+        timestamp: new Date().toISOString(),
+      };
+
+      try {
+        // Submit data to Google Apps Script Web App
+        const response = await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: new URLSearchParams(data),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        // Show success message and hide form
+        form.classList.add("hidden");
+        successMsg.classList.remove("hidden");
+        successMsg.scrollIntoView({ behavior: "smooth" });
+      } catch (error) {
+        alert(
+          "An error occurred while submitting the form. Please try again or contact the admin at 8149525915."
+        );
+        console.error("Submission error:", error);
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = `<i class="fas fa-paper-plane mr-2"></i> Submit Nomination`;
+      }
+    });
+  </script>
+</body>
+</html>
