@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,383 +9,138 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- FontAwesome CDN -->
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
   <style>
-    /* Background image and overlay */
     body {
       font-family: 'Poppins', sans-serif;
-      min-height: 100vh;
-      margin: 0;
-      background: 
-        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
-        url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9a9e5246-2775-4394-85c3-89fa79691620.png') no-repeat center center fixed;
+      background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://example.com/your-background-image.jpg') no-repeat center center fixed;
       background-size: cover;
       color: #3b2f0b;
     }
 
-    /* Scrollbar styling for events list */
-    #eventsCheckboxes {
-      scrollbar-width: thin;
-      scrollbar-color: #f6e05e #fffde7;
-    }
-    #eventsCheckboxes::-webkit-scrollbar {
-      width: 7px;
-    }
-    #eventsCheckboxes::-webkit-scrollbar-track {
-      background: #fffde7;
-      border-radius: 10px;
-    }
-    #eventsCheckboxes::-webkit-scrollbar-thumb {
-      background-color: #f6e05e;
-      border-radius: 10px;
-      border: 1px solid #fefcbf;
-    }
-
-    /* Custom checkbox styles */
-    .checkbox-custom {
-      appearance: none;
-      -webkit-appearance: none;
-      background-color: #fffde7;
-      border: 2.5px solid #f6e05e;
-      border-radius: 0.5rem;
-      width: 1.4rem;
-      height: 1.4rem;
-      cursor: pointer;
-      position: relative;
-      transition: border-color 0.3s ease, background-color 0.3s ease;
-      box-shadow: 0 2px 6px rgba(246, 224, 94, 0.5);
-      margin-right: 0.75rem;
-    }
-    .checkbox-custom:checked {
-      background-color: #f6e05e; /* golden */
-      border-color: #d69e2e; /* darker gold */
-    }
-    .checkbox-custom:checked::after {
-      content: '';
-      position: absolute;
-      top: 0.18rem;
-      left: 0.43rem;
-      width: 0.3rem;
-      height: 0.7rem;
-      border: solid #4a3700;
-      border-width: 0 0.3rem 0.3rem 0;
-      transform: rotate(45deg);
-      pointer-events: none;
-    }
-    .checkbox-custom:focus-visible {
-      outline: 3px solid #f6e05eaa;
-      outline-offset: 2px;
-    }
-
-    /* Container and card styles */
     .container-card {
-      max-width: 600px;
-      margin: 3rem auto 4rem;
-      background: rgba(255 253 229 / 0.95);
-      padding: 2.5rem 3rem 3rem 3rem;
-      border-radius: 2rem;
-      box-shadow: 0 15px 40px rgba(246, 224, 94, 0.15);
-      border: 3px solid #f6e05e;
-      position: relative;
-      z-index: 10;
+      max-width: 700px;
+      margin: 2rem auto;
+      background: #fffdf2;
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     }
 
-    /* Header */
-    header h1 {
-      text-shadow: 2px 2px 5px #ab8d00cc;
-    }
-    header p {
-      text-shadow: 1px 1px 3px #ab8d0066;
+    input, select, textarea {
+      background: #fff;
+      border: 1px solid #f6e05e;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      width: 100%;
+      margin-top: 0.5rem;
     }
 
-    /* Form labels */
     label {
       font-weight: 600;
-      color: #7c6b00;
-    }
-
-    /* Input & select fields */
-    input[type="text"],
-    input[type="tel"],
-    select {
-      background: #fffde7;
-      border: 2.5px solid #f6e05e;
-      border-radius: 1rem;
-      font-weight: 500;
-      padding: 0.85rem 1rem;
-      font-size: 1rem;
-      box-shadow: inset 0 1.5px 3px #fff9c4;
-      transition: all 0.3s ease;
-      width: 100%;
       color: #4a3700;
     }
-    input[type="text"]:focus,
-    input[type="tel"]:focus,
-    select:focus {
-      border-color: #d69e2e;
-      box-shadow: 0 0 10px #f6e05eaa;
-      outline: none;
-      background-color: #fffde7;
-    }
-    ::placeholder {
-      color: #9a8c02;
-      opacity: 0.8;
+
+    button {
+      background: #f6e05e;
+      border: none;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      font-weight: bold;
+      color: #4a3700;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
     }
 
-    /* Fieldset and event checkbox container */
+    button:hover {
+      background: #e4c200;
+    }
+
+    footer {
+      color: #6b4e00;
+      text-align: center;
+      padding: 1rem 0;
+      font-size: 1rem;
+    }
+
     fieldset {
-      border: 3px solid #f6e05e;
-      border-radius: 1.5rem;
-      background-color: #fff8b8cc;
-      padding: 1.5rem 2rem;
-      box-shadow: inset 0 0 12px #d69e2e88;
+      border: 2px solid #f6e05e;
+      border-radius: 0.5rem;
+      padding: 1rem;
       margin-bottom: 1.5rem;
     }
+
     legend {
-      font-weight: 700;
-      font-size: 1.3rem;
+      font-weight: bold;
       color: #654e03;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1rem;
-      user-select: none;
-    }
-
-    /* Event checkbox labels */
-    fieldset label {
-      user-select: none;
-      curor: pointer;
-      display: flex;
-      align-items: center;
-      font-weight: 600;
-      color: #6c5500;
-      transition: color 0.3s ease;
-    }
-    fieldset label:hover {
-      color: #d69e2e;
-    }
-
-    /* Submit Button */
-    button#submitButton {
-      background: #f6e05e;
-      background-image: linear-gradient(45deg, #f6e05e, #d69e2e);
-      font-weight: 700;
-      font-size: 1.25rem;
-      padding: 1rem;
-      border-radius: 1.5rem;
-      border: none;
-      color: #4a3700;
-      box-shadow: 0 7px 20px #d69e2e99;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-      transition:
-        background-position 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.3s ease;
-      background-size: 200% 200%;
-      background-position: left center;
-      user-select: none;
-    }
-    button#submitButton:hover:not(:disabled) {
-      background-position: right center;
-      box-shadow: 0 10px 30px #d69e2ecc;
-      transform: translateY(-3px);
-      color: #3a2a00;
-    }
-    button#submitButton:disabled {
-      cursor: not-allowed;
-      opacity: 0.65;
-      box-shadow: none;
-      transform: none;
-      background-position: left center;
-    }
-
-    /* Success message */
-    #successMsg {
-      background: rgba(246 224 94 / 0.8);
-      border: 4px solid #d69e2e;
-      color: #4a3700;
-      padding: 2rem 2.5rem;
-      border-radius: 2rem;
-      font-weight: 700;
-      font-size: 1.3rem;
-      box-shadow: 0 10px 30px #d69e2ebb;
-      max-width: 600px;
-      margin: 3rem auto 6rem;
-      text-align: center;
-      user-select: none;
-    }
-    #successMsg i {
-      font-size: 3.5rem;
-      margin-bottom: 1rem;
-      color: #6c5500;
-      animation: pulse 2.5s infinite;
-      display: block;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 1;
-        transform: scale(1);
-      }
-      50% {
-        opacity: 0.7;
-        transform: scale(1.1);
-      }
-    }
-
-    /* Footer */
-    footer {
-      color: #f6e05e;
-      user-select: none;
-      font-weight: 700;
-      text-align: center;
-      padding: 1.5rem 0 2rem 0;
-      font-size: 1.1rem;
-      text-shadow: 1px 1px 3px #654e0344;
-    }
-
-    /* Responsive tweaks */
-    @media (max-width: 480px) {
-      .container-card {
-        margin: 1.5rem 1rem 3rem 1rem;
-        padding: 2rem 1.5rem 2rem 1.5rem;
-      }
-      button#submitButton {
-        font-size: 1.1rem;
-        padding: 0.9rem;
-      }
+      padding: 0 0.5rem;
     }
   </style>
 </head>
 <body>
-  <header class="text-center pt-10 mb-6 select-none">
-    <i class="fas fa-hands-praying fa-5x text-yellow-400 drop-shadow-xl mb-4"></i>
-    <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight text-yellow-400 drop-shadow-lg leading-tight max-w-xl mx-auto">
-      Sai Vista Ganesh Festival Celebration 2025
-    </h1>
-    <p class="mt-3 text-lg md:text-xl font-semibold text-yellow-300 max-w-md mx-auto drop-shadow-sm">
-      Daily Events Nomination Form: Aug 28 - Sept 5
-    </p>
+  <header class="text-center pt-10 mb-6">
+    <i class="fas fa-hands-praying fa-4x text-yellow-400 mb-3"></i>
+    <h1 class="text-3xl font-extrabold text-yellow-500 drop-shadow">Sai Vista Ganesh Festival 2025</h1>
+    <p class="mt-1 text-lg text-yellow-700">Daily Events Nomination Form: Aug 28 - Sept 5</p>
   </header>
 
   <main class="container-card">
-    <form id="eventsForm" novalidate>
-      <!-- Full Name -->
-      <div class="mb-6">
-        <label for="name"> <i class="fas fa-user mr-2"></i> Full Name <span class="text-red-600">*</span></label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          placeholder="Your full name"
-          autocomplete="name"
-          aria-describedby="name-error"
-        />
-        <p id="name-error" class="text-red-700 text-sm mt-1 hidden">Please enter your name.</p>
+    <form id="eventsForm" novalidate class="space-y-6">
+      <div>
+        <label for="name">Full Name <span class="text-red-600">*</span></label>
+        <input type="text" id="name" name="name" required placeholder="Your full name" />
       </div>
 
-      <!-- Flat Number and Wing -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label for="flatNo"> <i class="fas fa-building mr-2"></i> Flat Number <span class="text-red-600">*</span></label>
-          <select id="flatNo" name="flatNo" required aria-describedby="flatNo-error">
+          <label for="flatNo">Flat Number <span class="text-red-600">*</span></label>
+          <select id="flatNo" name="flatNo" required>
             <option value="" disabled selected>Select Flat Number</option>
           </select>
-          <p id="flatNo-error" class="text-red-700 text-sm mt-1 hidden">Please select flat number.</p>
         </div>
         <div>
-          <label for="wing"> <i class="fas fa-layer-group mr-2"></i> Wing <span class="text-red-600">*</span></label>
-          <select id="wing" name="wing" required aria-describedby="wing-error">
+          <label for="wing">Wing <span class="text-red-600">*</span></label>
+          <select id="wing" name="wing" required>
             <option value="" disabled selected>Select Wing</option>
-            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
-            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+            <option value="E">E</option>
+            <option value="F">F</option>
           </select>
-          <p id="wing-error" class="text-red-700 text-sm mt-1 hidden">Please select wing.</p>
         </div>
       </div>
 
-      <!-- WhatsApp Number -->
-      <div class="mb-6">
-        <label for="whatsapp"> <i class="fab fa-whatsapp mr-2"></i> WhatsApp Number <span class="text-red-600">*</span></label>
-        <input
-          type="tel"
-          id="whatsapp"
-          name="whatsapp"
-          required
-          pattern="[0-9]{10}"
-          minlength="10"
-          maxlength="10"
-          placeholder="Enter 10-digit WhatsApp number"
-          autocomplete="tel"
-          aria-describedby="whatsapp-error"
-        />
-        <p id="whatsapp-error" class="text-red-700 text-sm mt-1 hidden">Please enter a valid 10-digit WhatsApp number.</p>
-        <p class="text-yellow-700 text-xs mt-1">Enter number without country code</p>
+      <div>
+        <label for="whatsapp">WhatsApp Number <span class="text-red-600">*</span></label>
+        <input type="tel" id="whatsapp" name="whatsapp" required pattern="[0-9]{10}" placeholder="Enter 10-digit WhatsApp number" />
       </div>
 
-      <!-- Events Selection -->
-      <fieldset aria-describedby="eventError" class="mb-6">
-        <legend>
-          <i class="fas fa-calendar-day mr-2"></i>
-          Select Events to Participate <span class="text-red-600">*</span>
-        </legend>
-        <p id="eventError" class="text-red-700 text-sm mt-1 mb-3 hidden">Please select at least one event.</p>
-        <div id="eventsCheckboxes" style="max-height: 220px; overflow-y: auto;">
-          <!-- Checkboxes populated here -->
+      <fieldset>
+        <legend>Select Events to Participate <span class="text-red-600">*</span></legend>
+        <div id="eventsCheckboxes" class="space-y-2 max-h-64 overflow-y-auto mt-2">
+          <!-- Checkboxes will be inserted here -->
         </div>
       </fieldset>
 
-      <!-- Acknowledge -->
-      <div class="flex items-center mb-6">
-        <input type="checkbox" id="ack" name="ack" required class="checkbox-custom" aria-describedby="ackError"/>
-        <label for="ack" class="cursor-pointer select-none ml-3 font-semibold text-yellow-900">
-          I acknowledge that my details may be used for event coordination and festival management. <span class="text-red-600">*</span>
-        </label>
+      <div class="flex items-start space-x-3">
+        <input type="checkbox" id="ack" name="ack" required class="mt-1" />
+        <label for="ack" class="text-sm">I acknowledge that my details may be used for event coordination and festival management. <span class="text-red-600">*</span></label>
       </div>
-      <p id="ackError" class="text-red-700 text-sm mb-6 hidden">Please acknowledge before submitting.</p>
 
-      <!-- Submit -->
-      <button type="submit" id="submitButton" aria-label="Submit Nomination">
-        <i class="fas fa-paper-plane mr-2"></i> Submit Nomination
-      </button>
+      <button type="submit">Submit Nomination</button>
     </form>
   </main>
 
-  <section id="successMsg" class="hidden" role="alert" aria-live="polite" aria-atomic="true" >
-    <i class="fas fa-check-circle"></i>
-    <p>Thank you for your nomination!<br />We will connect with you soon on WhatsApp.<br />For any changes, please message admin at <strong>8149525915</strong>.</p>
-  </section>
-
-  <footer>
-    Sai Vista Ganesh Festival Celebration 2025 &mdash; Aug 28 to Sept 5
+  <footer class="mt-10">
+    &copy; 2025 Sai Vista Ganesh Festival &mdash; Aug 28 to Sept 5
   </footer>
 
   <script>
-    // === Google Apps Script Web App URL (replace this!) ===
-    const GOOGLE_SCRIPT_URL = "YOUR_GOOGLE_APPS_SCRIPT_WEBAPP_URL";
-
-    // Tailwind utility classes to inputs & buttons
-    const inputs = [];
-    const selects = [];
-
-    // Utility function for showing/hiding errors
-    function toggleError(id, show) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      el.style.display = show ? "block" : "none";
-    }
-
-    // Populate Flat Number options (1-13 floors, flats 01-04)
+    // Populate Flat Numbers
     (function populateFlatOptions() {
       const flatSelect = document.getElementById("flatNo");
       for (let floor = 1; floor <= 13; floor++) {
@@ -398,8 +153,8 @@
       }
     })();
 
-    // Populate event checkboxes
-    const eventsList = [
+    // Populate Event Checkboxes
+    const events = [
       { id: "event1", day: 1, date: "28 Aug", name: "Modak Making" },
       { id: "event2", day: 2, date: "29 Aug", name: "Drawing Competition" },
       { id: "event3", day: 3, date: "30 Aug", name: "Antakshari" },
@@ -412,215 +167,24 @@
     ];
 
     const eventsContainer = document.getElementById("eventsCheckboxes");
-    eventsList.forEach(({ id, day, date, name }) => {
+    events.forEach(({ id, day, date, name }) => {
       const div = document.createElement("div");
-      div.style.marginBottom = "0.6rem";
-      div.style.display = "flex";
-      div.style.alignItems = "center";
+      div.className = "flex items-center space-x-3";
 
       const checkbox = document.createElement("input");
       checkbox.type = "checkbox";
       checkbox.id = id;
       checkbox.name = "events";
       checkbox.value = `Day ${day} - ${date} - ${name}`;
-      checkbox.className = "checkbox-custom";
 
       const label = document.createElement("label");
       label.htmlFor = id;
-      label.style.cursor = "pointer";
-      label.style.color = "#6c5400";
-      label.style.fontWeight = "600";
       label.textContent = `Day ${day} - ${date} - ${name}`;
 
       div.appendChild(checkbox);
       div.appendChild(label);
       eventsContainer.appendChild(div);
     });
-
-    // Restrict WhatsApp to digits and max 10 chars
-    document.getElementById("whatsapp").addEventListener("input", (ev) => {
-      ev.target.value = ev.target.value.replace(/\D/g, "").slice(0, 10);
-    });
-
-    // Form submission handler
-    const form = document.getElementById("eventsForm");
-    const submitBtn = document.getElementById("submitButton");
-    const successMsg = document.getElementById("successMsg");
-
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      // Clear errors
-      toggleError("name-error", false);
-      toggleError("flatNo-error", false);
-      toggleError("wing-error", false);
-      toggleError("whatsapp-error", false);
-      toggleError("eventError", false);
-      toggleError("ackError", false);
-
-      // Validation flags
-      let valid = true;
-
-      // Validate Name
-      if (!form.name.value.trim()) {
-        toggleError("name-error", true);
-        valid = false;
-      }
-      // Validate Flat Number
-      if (!form.flatNo.value) {
-        toggleError("flatNo-error", true);
-        valid = false;
-      }
-      // Validate Wing
-      if (!form.wing.value) {
-        toggleError("wing-error", true);
-        valid = false;
-      }
-      // Validate WhatsApp Number
-      if (!/^\d{10}$/.test(form.whatsapp.value)) {
-        toggleError("whatsapp-error", true);
-        valid = false;
-      }
-      // Validate at least one event selected
-      const selectedEvents = Array.from(form.querySelectorAll("input[name='events']:checked"));
-      if (selectedEvents.length === 0) {
-        toggleError("eventError", true);
-        valid = false;
-      }
-      // Validate Acknowledge checkbox
-      if (!form.ack.checked) {
-        // Show acknowledge error
-        let ackError = document.getElementById("ackError");
-        if (!ackError) {
-          ackError = document.createElement("p");
-          ackError.id = "ackError";
-          ackError.className = "text-red-700 text-sm mt-1";
-          ackError.textContent = "Please acknowledge before submitting.";
-          form.querySelector('label[for="ack"]').after(ackError);
-        }
-        else {
-          toggleError("ackError", true);
-        }
-        valid = false;
-      }
-
-      if (!valid) {
-        return;
-      }
-
-      // Disable button on submission to avoid multiple clicks
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin mr-2"></i>Submitting...`;
-
-      // Prepare data for submission
-      const postData = {
-        name: form.name.value.trim(),
-        flatNo: form.flatNo.value,
-        wing: form.wing.value,
-        whatsapp: form.whatsapp.value,
-        events: selectedEvents.map(chk => chk.value).join("; "),
-        acknowledge: form.ack.checked ? "Yes" : "No",
-        timestamp: new Date().toISOString()
-      };
-
-      try {
-        const res = await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(postData)
-        });
-
-        if (!res.ok) throw new Error(`Error: ${res.status}`);
-
-        // On success, hide form and show success message
-        form.style.display = 'none';
-
-        successMsg.className = 'container-card';
-        successMsg.style.textAlign = 'center';
-        successMsg.style.margin = '2rem auto 5rem auto';
-        successMsg.style.padding = '3rem';
-        successMsg.style.borderRadius = '2rem';
-        successMsg.style.boxShadow = '0 15px 40px rgba(246, 224, 94, 0.25)';
-        successMsg.style.maxWidth = '600px';
-        successMsg.style.backgroundColor = 'rgba(255 253 229 / 0.97)';
-        successMsg.style.color = '#654e03';
-        successMsg.style.fontWeight = '700';
-        successMsg.style.fontSize = '1.4rem';
-        successMsg.style.display = 'block';
-
-        successMsg.scrollIntoView({ behavior: 'smooth' });
-      } catch (error) {
-        alert("Submission failed. Please try again or contact admin at 8149525915.");
-        console.error(error);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<i class="fas fa-paper-plane mr-2"></i> Submit Nomination`;
-      }
-    });
   </script>
-
-  <style>
-    /* Inline styles for form elements */
-    input[type="text"],
-    input[type="tel"],
-    select {
-      background: #fffde7;
-      border: 2.5px solid #f6e05e;
-      border-radius: 1rem;
-      font-weight: 600;
-      padding: 0.85rem 1rem;
-      font-size: 1rem;
-      box-shadow: inset 0 1.5px 3px #fff9c4;
-      transition: all 0.3s ease;
-      width: 100%;
-      color: #4a3700;
-      margin-top: 0.2rem;
-    }
-    input[type="text"]:focus,
-    input[type="tel"]:focus,
-    select:focus {
-      border-color: #d69e2e;
-      box-shadow: 0 0 15px #f6e05eaa;
-      outline: none;
-      background-color: #fffde7;
-    }
-    button#submitButton {
-      background: #f6e05e;
-      background-image: linear-gradient(45deg, #f6e05e, #d69e2e);
-      font-weight: 700;
-      font-size: 1.25rem;
-      padding: 1rem 0;
-      border-radius: 1.5rem;
-      border: none;
-      color: #4a3700;
-      box-shadow: 0 7px 20px #d69e2e99;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-      transition:
-        background-position 0.3s ease,
-        box-shadow 0.3s ease,
-        transform 0.3s ease;
-      background-size: 200% 200%;
-      background-position: left center;
-      user-select: none;
-      width: 100%;
-    }
-    button#submitButton:hover:not(:disabled) {
-      background-position: right center;
-      box-shadow: 0 10px 30px #d69e2ecc;
-      transform: translateY(-3px);
-      color: #3a2a00;
-    }
-    button#submitButton:disabled {
-      cursor: not-allowed;
-      opacity: 0.7;
-      box-shadow: none;
-      transform: none;
-      background-position: left center;
-    }
-  </style>
 </body>
 </html>
